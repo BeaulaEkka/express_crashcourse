@@ -22,8 +22,30 @@ let posts = [
   { id: 5, title: "Post five" },
 ];
 
+//get all posts
+// app.get("/api/posts", (req, res) => {
+//   const limit = parseInt(req.query.limit);
+//   if (!isNaN(limit) && limit > 0) {
+//     res.json(posts.slice(0, limit));
+//   } else {
+//     res.json(posts);
+//   }
+//   res.json(posts);
+// });
+
 app.get("/api/posts", (req, res) => {
-  res.json(posts);
+  const limit = parseInt(req.query.limit);
+  if (!isNaN(limit) && limit > 0) {
+    res.json(posts.slice(0, limit));
+  } else {
+    res.json(posts);
+  }
+});
+
+//get single post
+app.get("/api/posts/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  res.json(posts.filter((post) => post.id === id));
 });
 
 app.listen(port, () => console.log("Server is running on port 8000"));
