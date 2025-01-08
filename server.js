@@ -43,9 +43,22 @@ app.get("/api/posts", (req, res) => {
 });
 
 //get single post
+// app.get("/api/posts/:id", (req, res) => {
+//   const id = parseInt(req.params.id);
+//   res.json(posts.filter((post) => post.id === id));
+// });
+
+//find
+
 app.get("/api/posts/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  res.json(posts.filter((post) => post.id === id));
+  const post = posts.find((post) => post.id === id);
+
+  if (!post) {
+    res.status(404).json({ message: "Post not found" });
+  } else {
+    res.status(200).json(post);
+  }
 });
 
 app.listen(port, () => console.log("Server is running on port 8000"));
