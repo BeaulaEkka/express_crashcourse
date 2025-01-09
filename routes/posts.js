@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 let posts = [
@@ -27,7 +27,6 @@ router.get("/", (req, res) => {
 // });
 
 //find
-
 router.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
@@ -39,4 +38,19 @@ router.get("/:id", (req, res) => {
   }
 });
 
-module.exports = router;
+//create new posts
+router.post("/", (req, res) => {
+  const newPost = {
+    id: posts.length + 1,
+    title: req.body.title,
+  };
+  if (!newPost.title) {
+    return res.status(400).json({ msg: "Please include a title" });
+  }
+  posts.push(newPost);
+  res.status(201).json(posts);
+  console.log(newPost);
+  res.status(201).json(posts);
+});
+
+export default router;
