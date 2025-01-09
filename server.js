@@ -3,7 +3,7 @@ import path from "path";
 import posts from "./routes/posts.js";
 import { fileURLToPath } from "url";
 import logger from "./middleware/logger.js";
-import errorHandler from "./middleware/error.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 // Derive __dirname
 const __filename = fileURLToPath(import.meta.url);

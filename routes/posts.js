@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 // });
 
 //find -single post
-router.get("/:id", (req, res) => {
+router.get("/:id", (req, res, next) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
 
