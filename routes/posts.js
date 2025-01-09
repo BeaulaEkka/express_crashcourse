@@ -30,7 +30,8 @@ router.get("/:id", (req, res) => {
   const post = posts.find((post) => post.id === id);
 
   if (!post) {
-    return res.status(404).json({ message: `Post with id ${id} not found.` });
+    const error = new Error(`Post with id ${id} not found.`);
+    return next(error);
   }
   res.status(200).json(post);
 });
