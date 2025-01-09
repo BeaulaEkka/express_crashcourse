@@ -9,13 +9,19 @@ let posts = [
   { id: 5, title: "Post five" },
 ];
 
-//get all posts
-router.get("/", (req, res) => {
+//logger
+const logger = (req, res, next) => {
+  console.log(
+    `${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`
+  );
+  next();
+}; //next runs at the end and adds next piece of function
+
+// Get all posts
+router.get("/", logger, (req, res) => {
   const limit = parseInt(req.query.limit);
   if (!isNaN(limit) && limit > 0) {
-    res.json(posts.slice(0, limit));
-  } else {
-    res.json(posts);
+    return res.json(posts.slice(0, limit)); // Single response
   }
   res.json(posts);
 });
@@ -26,19 +32,18 @@ router.get("/", (req, res) => {
 //   res.json(posts.filter((post) => post.id === id));
 // });
 
-//find
+//find -single post
 router.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
 
   if (!post) {
-    res.status(404).json({ message: "Post not found" });
-  } else {
-    res.status(200).json(post);
+    return res.status(404).json({ message: `Post with id ${id} not found.` });
   }
+  res.status(200).json(post);
 });
 
-//create new posts
+//create new POST
 router.post("/", (req, res) => {
   const newPost = {
     id: posts.length + 1,
@@ -48,7 +53,6 @@ router.post("/", (req, res) => {
     return res.status(400).json({ msg: "Please include a title" });
   }
   posts.push(newPost);
-  res.status(201).json(posts);
   console.log(newPost);
   res.status(201).json(posts);
 });
@@ -72,10 +76,10 @@ router.delete("/:id", (req, res) => {
   if (!toDeletePost) {
     return res
       .status(404)
-      .json({ msg: `The message with ${id} does not exist` });
+      .json({ msg: `The message with an id of  ${id} does not exist` });
   }
   posts = posts.filter((post) => post.id !== id);
-  res.status(200).json(posts)
+  res.status(200).json(posts);
 });
 
 export default router;
