@@ -9,16 +9,8 @@ let posts = [
   { id: 5, title: "Post five" },
 ];
 
-//logger
-const logger = (req, res, next) => {
-  console.log(
-    `${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`
-  );
-  next();
-}; //next runs at the end and adds next piece of function
-
 // Get all posts
-router.get("/", logger, (req, res) => {
+router.get("/", (req, res) => {
   const limit = parseInt(req.query.limit);
   if (!isNaN(limit) && limit > 0) {
     return res.json(posts.slice(0, limit)); // Single response

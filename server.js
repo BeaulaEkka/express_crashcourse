@@ -2,17 +2,22 @@ import express from "express";
 import path from "path";
 import posts from "./routes/posts.js";
 import { fileURLToPath } from "url";
+import logger from "./middleware/logger.js";
 
 // Derive __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const port = process.env.PORT || 8000;
+
 const app = express();
 
 //Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); //allows to send form data
+
+//Logger middleware
+app.use(logger);
 
 //set up static folder
 app.use(express.static(path.join(__dirname, "public")));
