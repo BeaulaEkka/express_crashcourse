@@ -10,14 +10,7 @@ let posts = [
 ];
 
 // Get all posts
-router.get("/", (req, res, next) => {
-  const limit = parseInt(req.query.limit);
-  if (!isNaN(limit) && limit > 0) {
-    return res.json(posts.slice(0, limit)); // Single response
-    next(error);
-  }
-  res.json(posts);
-});
+router.get("/", getPosts);
 
 //get single post
 // app.get("/api/posts/:id", (req, res) => {
