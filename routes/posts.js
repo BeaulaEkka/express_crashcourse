@@ -77,7 +77,7 @@ router.delete("/:id", (req, res, next) => {
   const toDeletePost = posts.find((post) => post.id === id);
 
   if (!toDeletePost) {
-    const error = new Error(`The message with an id of  ${id} does not exist`);
+    const error = new Error(`The post with an id of  ${id} does not exist`);
     error.status = 404;
     return next(error);
   }

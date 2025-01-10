@@ -4,6 +4,7 @@ import posts from "./routes/posts.js";
 import { fileURLToPath } from "url";
 import logger from "./middleware/logger.js";
 import errorHandler from "./middleware/errorHandler.js";
+import notFound from "./middleware/notFound.js";
 
 // Derive __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -20,8 +21,6 @@ app.use(express.urlencoded({ extended: false })); //allows to send form data
 //Logger middleware
 app.use(logger);
 
-
-
 //set up static folder
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -35,6 +34,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //Routes
 app.use("/api/posts", posts);
+app.use(notFound);
 
 //error Handler
 app.use(errorHandler);
