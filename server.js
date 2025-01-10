@@ -34,9 +34,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //Routes
 app.use("/api/posts", posts);
-app.use(notFound);
 
 //error Handler
+app.use(notFound);
 app.use(errorHandler);
 
 app.listen(port, () => console.log("Server is running on port 8000"));
