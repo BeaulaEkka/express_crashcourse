@@ -1,13 +1,11 @@
 const output = document.querySelector("#output");
 const button = document.querySelector("#get-post-btn");
 
-// Get and show posts
-async function showPosts() {
+async function getPosts() {
   try {
     const res = await fetch("http://localhost:8000/api/posts");
-
     if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      throw new Error(res.statusText);
     }
     const posts = await res.json();
     output.innerHTML = "";
@@ -25,5 +23,5 @@ async function showPosts() {
   }
 }
 
-// Event Listeners
-button.addEventListener("click", showPosts);
+//event listners
+button.addEventListener("click", getPosts);
