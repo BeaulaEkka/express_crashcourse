@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import logger from "./middleware/logger.js";
 import errorHandler from "./middleware/errorHandler.js";
 import notFound from "./middleware/notFound.js";
+import cors from "cors";
 
 // Derive __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -38,5 +39,8 @@ app.use("/api/posts", posts);
 //error Handler
 app.use(notFound);
 app.use(errorHandler);
+
+// Enable CORS
+app.use(cors());
 
 app.listen(port, () => console.log("Server is running on port 8000"));

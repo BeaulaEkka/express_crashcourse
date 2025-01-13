@@ -1,12 +1,13 @@
 const output = document.querySelector("#output");
 const button = document.querySelector("#get-post-btn");
 
-//Get and show posts
+// Get and show posts
 async function showPosts() {
   try {
-    const res = await fetch("https//localhost:8000/api/posts");
-    if (!res) {
-      throw new Error("Failed to fetch posts");
+    const res = await fetch("http://localhost:8000/api/posts");
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
     }
     const posts = await res.json();
     output.innerHTML = "";
@@ -14,12 +15,15 @@ async function showPosts() {
     posts.forEach((post) => {
       const postEl = document.createElement("div");
       postEl.textContent = post.title;
+      postEl.style.padding = "10px";
+      postEl.style.marginBottom = "10px";
+      postEl.style.border = "1px solid #ccc";
       output.appendChild(postEl);
     });
   } catch (error) {
-    console.log("Error fetching posts:", error);
+    console.error("Error fetching posts:", error);
   }
 }
 
-//Event Listners
-button.addEventListners("click", showPosts);
+// Event Listeners
+button.addEventListener("click", showPosts);
