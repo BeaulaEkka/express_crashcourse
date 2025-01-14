@@ -23,5 +23,23 @@ async function getPosts() {
   }
 }
 
+//submit new post
+async function addPost(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  const title = formData.get("title");
+  try {
+    const res = await fetch("http://localhost:8000/api/posts");
+    content-Type:POST;
+
+    if (!res.ok) {
+      throw new Error(res.statusText);
+    }
+    const newPost = await res.json();
+    output.innerHTML = "";
+    const postEl = document.createElement("div");
+  } catch (error) {}
+}
+
 //event listners
-button.addEventListener("click", getPosts);
+button.addEventListener("click", getPosts, addPost);
